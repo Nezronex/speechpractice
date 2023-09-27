@@ -2,7 +2,7 @@
 
 let timerInterval;
 let startTime;
-let remainingTime = 300; // Set the initial remaining time in seconds (e.g., 5 minutes)
+let remainingTime = 300; // Initial timer value in seconds
 
 function updateProgressBar() {
     const percentage = ((totalTime - remainingTime) / totalTime) * 100;
@@ -12,7 +12,7 @@ function updateProgressBar() {
 function startTimer() {
     const timerInput = parseInt(document.getElementById("timer-input").value, 10);
     if (timerInput >= 0) {
-        totalTime = timerInput;
+        totalTime = timerInput; // Assign the input value to totalTime
         startTime = new Date().getTime();
         clearInterval(timerInterval);
         timerInterval = setInterval(function() {
@@ -23,6 +23,7 @@ function startTimer() {
             const seconds = remainingTime % 60;
             document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             updateProgressBar();
+            adjustScroll(); // Adjust the scroll position as the timer progresses
             if (remainingTime <= 0) {
                 stopTimer();
             }
@@ -36,12 +37,23 @@ function stopTimer() {
     const seconds = remainingTime % 60;
     document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     document.getElementById("progress-bar").style.width = "0%";
+    const textInput = document.getElementById("display-text").innerText;
 
     // The popup will only appear when the timer naturally reaches zero.
     if (remainingTime <= 0) {
         const modal = document.getElementById("myModal");
         modal.style.display = "block";
     }
+
+    adjustScroll(); // Adjust the scroll position when the timer stops
+}
+
+function adjustScroll() {
+    const scrollPercentage = ((totalTime - remainingTime) / totalTime) * 100;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = document.body.scrollHeight;
+    const scrollTo = (scrollPercentage / 100) * (scrollHeight - windowHeight);
+    window.scrollTo(0, scrollTo);
 }
 
 function closeModal() {
@@ -56,5 +68,3 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-let totalTime = remainingTime; // Store the total time initially
