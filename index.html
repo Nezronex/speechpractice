@@ -8,19 +8,17 @@
 </head>
 <body>
     <h1>Spread Practice</h1>
-    
-    
-        <div id="progress-bar-container">
-            <div id="progress-bar"></div>
-            <div id="timer">00:00</div>
-        </div>
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+        <div id="timer">00:00</div>
+        <button onclick="stopTimer()">Stop</button>
+    </div>
     <div id="progress-container">
         <div>
             <label for="timer-input">Set Timer (seconds):</label>
             <input type="number" id="timer-input" value="300">
         </div>
-        <button onclick="startTimer()">Start</button>
-        <button onclick="stopTimer()">Stop</button>
+        <button onclick="startTimer()">Start</button>    
     </div>
     
     
