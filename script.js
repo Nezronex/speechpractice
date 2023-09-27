@@ -36,7 +36,6 @@ function stopTimer() {
     const seconds = remainingTime % 60;
     document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     document.getElementById("progress-bar").style.width = "0%";
-    const textInput = document.getElementById("display-text").innerText;
 
     // The popup will only appear when the timer naturally reaches zero.
     if (remainingTime <= 0) {
