@@ -29,11 +29,25 @@ h1 {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Add this CSS for the progress bar container */
+#progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 97%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+/* Update the progress bar styles */
 #progress-bar {
-    width: 0;
     height: 30px;
-    background-color: #009688; /* Updated color */
-    border-radius: 15px; /* Rounded corners */
+    background-color: #009688;
+    border-radius: 15px;
 }
 
 #timer {
@@ -75,6 +89,11 @@ button {
 
 button:hover {
     background-color: #00796b;
+}
+
+/* Add margin-top to lower the elements */
+#progress-container {
+    margin-top: 90px;
 }
 
 /* Modal Styles */
