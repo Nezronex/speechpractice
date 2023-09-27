@@ -1,40 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spread Practice</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <h1>Spread Practice</h1>
-    
-    
-        <div id="progress-bar-container">
-            <div id="progress-bar"></div>
-            <div id="timer">00:00</div>
-        </div>
-    <div id="progress-container">
-        <div>
-            <label for="timer-input">Set Timer (seconds):</label>
-            <input type="number" id="timer-input" value="300">
-        </div>
-        <button onclick="startTimer()">Start</button>
-        <button onclick="stopTimer()">Stop</button>
-    </div>
-    
-    
-    
-    <div id="display-text" contenteditable="true"></div>
-    
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Timer Ended!</h2>
-            <p>Your timer has finished.</p>
-        </div>
-    </div>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+// script.js
+
+let timerInterval;
+let startTime;
+let remainingTime = 300; // Set the initial remaining time in seconds (e.g., 5 minutes)
+
+function updateProgressBar() {
+    const percentage = ((totalTime - remainingTime) / totalTime) * 100;
+    document.getElementById("progress-bar").style.width = percentage + "%";
+}
+
+function startTimer() {
+    const timerInput = parseInt(document.getElementById("timer-input").value, 10);
+    if (timerInput >= 0) {
+        totalTime = timerInput;
+        startTime = new Date().getTime();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const elapsedTime = now - startTime;
+            remainingTime = Math.max(totalTime - Math.floor(elapsedTime / 1000), 0);
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            updateProgressBar();
+            if (remainingTime <= 0) {
+                stopTimer();
+            }
+        }, 1000);
+    }
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById("progress-bar").style.width = "0%";
+    const textInput = document.getElementById("display-text").innerText;
+
+    // The popup will only appear when the timer naturally reaches zero.
+    if (remainingTime <= 0) {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+// Close the modal if the user clicks anywhere outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById("myModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+let totalTime = remainingTime; // Store the total time initially
