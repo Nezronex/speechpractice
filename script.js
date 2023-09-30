@@ -23,7 +23,6 @@ function startTimer() {
             const seconds = remainingTime % 60;
             document.getElementById("timer").innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             updateProgressBar();
-            adjustScroll(); // Adjust the scroll position as the timer progresses
             if (remainingTime <= 0) {
                 stopTimer();
             }
@@ -44,16 +43,6 @@ function stopTimer() {
         const modal = document.getElementById("myModal");
         modal.style.display = "block";
     }
-
-    adjustScroll(); // Adjust the scroll position when the timer stops
-}
-
-function adjustScroll() {
-    const scrollPercentage = ((totalTime - remainingTime) / totalTime) * 100;
-    const windowHeight = window.innerHeight;
-    const scrollHeight = document.body.scrollHeight;
-    const scrollTo = (scrollPercentage / 100) * (scrollHeight - windowHeight);
-    window.scrollTo(0, scrollTo);
 }
 
 function closeModal() {
