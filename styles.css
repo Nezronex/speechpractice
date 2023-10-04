@@ -12,12 +12,6 @@ body {
     color: #333;
 }
 
-h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #009688;
-}
-
 #progress-container {
     width: 80%;
     margin: 50px auto;
@@ -52,7 +46,7 @@ h1 {
 
 #timer {
     font-size: 36px;
-    margin-top: 20px;
+    margin-top: 10px;
     color: #009688;
 }
 
